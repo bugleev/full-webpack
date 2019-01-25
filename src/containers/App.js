@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from 'react'
 import Body from '../components/Body';
-import styles from '../styles.module.sass';
+import styles from '../styles/styles.module.sass';
 
 function lazyWithPreload(factory) {
   const Component = React.lazy(factory);

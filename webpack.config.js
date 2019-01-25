@@ -86,6 +86,19 @@ module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
   return webpackMerge(
     {
       mode,
+      stats: {
+        // copied from `'minimal'`
+        all: false,
+        assets: true,
+        builtAt: true,
+        modules: true,
+        maxModules: 0,
+        errors: true,
+        warnings: true,
+        // our additional options
+        moduleTrace: true,
+        errorDetails: true
+      },
       entry: [
         paths.appIndexJs
       ].filter(Boolean),
