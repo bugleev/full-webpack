@@ -13,6 +13,10 @@ export default class App extends Component {
   state = {
     showFooter: false
   }
+  componentDidUpdate(prevProps){
+    console.log("app update", prevProps, this.props);
+    
+  }
   handleCLick = () => {
     setTimeout(() => this.setState({ showFooter: !this.state.showFooter }), 50)
 
@@ -21,6 +25,7 @@ export default class App extends Component {
     LazyFooter.preload();
   }
   render() {
+    console.log("app rerender", this.props);
     return (
       <React.Fragment>
         <Body click={this.handleCLick} hover={this.handleHover} />
