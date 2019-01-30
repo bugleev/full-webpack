@@ -1,21 +1,18 @@
 import React, { Component } from 'react'
 import { left } from "./body.module.sass"
-import { MyContext } from "../contexts/LeftSideContext"
+import { observer } from "mobx-react";
+import { appState } from "../AppState/state";
 
-
-export default class LeftModule extends Component {
-  static contextType = MyContext;
-  componentDidMount(){
-    this.context.incrementLeft();
-    console.log(this.context);
-    
+@observer
+export default class LeftModule extends Component { 
+  componentDidMount(){  
+    console.log("update left");    
   } 
-  render() {   
-    const {leftCounter, incrementLeft} = this.context;
+  render() {       
     return (    
           <div className={left}>
-            <span>{leftCounter}</span>
-          <button onClick={incrementLeft}>Increment Left</button>
+            <span>{appState.leftCounter}</span>
+          <button onClick={appState.incrementLeft}>Increment Left</button>
         </div>     
     )
   }

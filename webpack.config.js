@@ -178,8 +178,9 @@ module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
                         },
                       },
                     ],
-                    "@babel/plugin-proposal-class-properties",
-                    "@babel/plugin-syntax-dynamic-import"
+                    "@babel/plugin-syntax-dynamic-import",
+                    ["@babel/plugin-proposal-decorators", { "legacy": true } ],
+                    ["@babel/plugin-proposal-class-properties", { "loose": true } ],                   
                   ],
                   // This is a feature of `babel-loader` for webpack (not Babel itself).
                   // It enables caching results in ./node_modules/.cache/babel-loader/

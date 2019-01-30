@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { right } from "./body.module.sass"
-import { Consumer } from '../contexts/LeftSideContext';
+import { observer } from "mobx-react";
+import { appState } from "../AppState/state";
 
+@observer
 export default class RightModule extends Component {
   componentDidUpdate(prevProps){
     console.log("right update", prevProps, this.props);
@@ -9,15 +11,11 @@ export default class RightModule extends Component {
   }
   render() {
     console.log("right rerender", this.props);
-    return (
-      <Consumer>
-        {({rightCounter, incrementRight}) => (
+    return (       
           <div className={right}>
-            <span>{rightCounter}</span>
-          <button onClick={incrementRight}>Increment Right</button>
-        </div>
-        )}       
-      </Consumer>
+            <span>{appState.rightCounter}</span>
+          <button onClick={appState.incrementRight}>Increment Right</button>
+        </div>      
     )
   }
 }
