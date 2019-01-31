@@ -6,13 +6,16 @@ import { appState } from "../AppState/state";
 @observer
 export default class LeftModule extends Component { 
   componentDidMount(){  
-    console.log("update left");    
+    appState.fetchPosts();    
   } 
-  render() {       
+  render() {
+    console.log(appState.posts, "posts");
+           
     return (    
           <div className={left}>
             <span>{appState.leftCounter}</span>
           <button onClick={appState.incrementLeft}>Increment Left</button>
+          {appState.posts.map(el=>(<div key={el.id}><p>{el.title}</p></div>))}
         </div>     
     )
   }

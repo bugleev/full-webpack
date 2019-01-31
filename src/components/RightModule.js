@@ -14,7 +14,7 @@ export default class RightModule extends Component {
     return (       
           <div className={right}>
             <span>{appState.rightCounter}</span>
-          <button onClick={appState.incrementRight}>Increment Right</button>
+          <button onClick={appState.fetchPosts}>Increment Right</button>
         </div>      
     )
   }
