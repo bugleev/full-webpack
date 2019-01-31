@@ -9,25 +9,26 @@ class ApplicationState {
   @observable
   posts = [];
   @action
-  incrementLeft=()=> {
+  incrementLeft = () => {
     this.leftCounter++;
   }
   @action
-  incrementRight=() =>{
+  incrementRight = () => {
     this.rightCounter++;
   }
-  @action 
-  fetchPosts= async ()=>{
-    this.posts = [];     
-    try {
-      fetchStatus.startFetching();
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-      const data = await response.json();
-      if(data) fetchStatus.fetchStop();
-      this.posts = data;     
-    } catch (error) {      
-      fetchStatus.fetchError("falied to fetch!")
-    }    
+  @action
+  fetchPosts = async () => {
+    this.posts = [];
+    fetchStatus.startFetching();
+    const response = await fetchStatus.verifyFetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response) return;
+    const data = await response.json();
+    fetchStatus.fetchStop();
+    this.posts = data
+  }
+
+  get postsFormatted() {
+    return this.posts;
   }
 }
 
