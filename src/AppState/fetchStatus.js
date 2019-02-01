@@ -1,6 +1,9 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed, flow } from "mobx";
 
 class FetchStatus {
+  constructor() {
+    this.fetchAndVerifyResponse = this.fetchAndVerifyResponse.bind(this);
+  }
   @observable
   isFetching = false;
   @observable
@@ -19,11 +22,11 @@ class FetchStatus {
     this.fetchSuccess = true;
   }
   @action
-  verifyFetch = async request => {
+  fetchAndVerifyResponse = flow(function* (request) {
     try {
-      const response = await fetch(request);
+      const response = yield fetch(request);
       if (!response.ok) {
-        const error = await response.json();
+        const error = yield response.json();
         process.env.NODE_ENV === "development" && console.log(error);
         this.fetchStop();
         this.fetchError(`Status: ${error.status}. Message: ${error.message}`);
@@ -34,7 +37,7 @@ class FetchStatus {
     } catch (error) {
       this.fetchError(`Ошибка сети! Нет соединения с сервером. Message: ${error.message}`);
     }
-  }
+  })
   @action
   fetchError = (text) => {
     this.isFetching = false;
@@ -47,7 +50,7 @@ class FetchStatus {
     return this.fetchSuccess ? "Успешно" : null
   }
   @action
-  tryCatchWrapper = (
+  runWithTryCatch = (
     func,
     argsArr,
     message = "Ошибка конвертации данных с сервера"

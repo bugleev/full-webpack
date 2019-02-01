@@ -16,10 +16,10 @@ class ApplicationState {
   fetchPosts = flow(function* () {
     this.clearPosts();
     fetchStatus.startFetching();
-    const response = yield fetchStatus.verifyFetch('https://jsonplaceholder.typicode.com/posts');
+    const response = yield fetchStatus.fetchAndVerifyResponse('https://jsonplaceholder.typicode.com/posts');
     if (!response) return;
     const data = yield response.json();
-    const formatted = fetchStatus.tryCatchWrapper(this.convertPosts, [data]);
+    const formatted = fetchStatus.runWithTryCatch(this.convertPosts, [data]);
     if (!formatted) return;
     this.posts = formatted;
     fetchStatus.fetchStop();
