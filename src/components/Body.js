@@ -11,12 +11,10 @@ export default class Body extends Component {
 
   }
   render() {
-    const { isFetching, fetchSuccess, errorMessage } = fetchStatus;
-    const error = !isFetching && errorMessage && !fetchSuccess ? errorMessage : null;
-    const success = !isFetching && fetchSuccess ? "Успешно!" : null;
+    const { isFetching, showSuccessMessage, errorMessage } = fetchStatus;
     return (
       <div className={container}>
-        <h1>{isFetching && "loading"}{success}{error}</h1>
+        <h1>{isFetching && "loading"}{showSuccessMessage}{errorMessage}</h1>
         <LeftModule />
         <RightModule />
       </div>

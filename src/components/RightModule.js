@@ -5,16 +5,10 @@ import { appState } from "../AppState/state";
 
 @observer
 export default class RightModule extends Component {
-  componentDidUpdate(prevProps) {
-    console.log("right update", prevProps, this.props);
-
-  }
   render() {
-    console.log("right rerender", this.props);
     return (
       <div className={right}>
-        <span>{appState.rightCounter}</span>
-        <button onClick={appState.postsFormatted}>Increment Right</button>
+        <button onClick={appState.fetchPosts}>Refetch Posts</button>
       </div>
     )
   }

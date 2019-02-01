@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 
 class FetchStatus {
   @observable
@@ -40,6 +40,11 @@ class FetchStatus {
     this.isFetching = false;
     this.fetchSuccess = false;
     this.errorMessage = text;
+  }
+
+  @computed
+  get showSuccessMessage() {
+    return this.fetchSuccess ? "Успешно" : null
   }
   @action
   tryCatchWrapper = (
